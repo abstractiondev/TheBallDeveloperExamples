@@ -1,0 +1,136 @@
+<script type="text/javascript">
+    var ActivateAccordion = function($clickedObject) {
+        var $myAccordion = $clickedObject.closest(".accordion");
+        var $currActive = $myAccordion.find("div.content.active");
+        $currActive.toggleClass("active");
+        $dd = $clickedObject.closest("dd");
+        $div = $dd.find("div.content");
+        if($currActive.get(0) != $div.get(0))
+        {
+            /* Only toggle active back active, if the click was different */
+            $div.toggleClass("active");
+        }
+    };
+    var UpdateConnectionThisSide = function(connectionID) {
+        tOP.ExecuteOperationWithForm("UpdateConnectionThisSideCategories", { "ConnectionID": connectionID});
+    };
+    var SynchronizeConnectionCategories = function(connectionID) {
+        tOP.ExecuteOperationWithForm("SynchronizeConnectionCategories", { "ConnectionID": connectionID});
+    };
+    var OpenAddConnectionForm = function() {
+        $("#OPInitiateIntegrationConnectionModal").foundation('reveal', 'open');
+    };
+    var DeleteConnection = function(connectionID) {
+        tOP.ExecuteOperationWithForm("DeleteConnection", { "ConnectionID": connectionID});
+    };
+    var FinalizeConnection = function(connectionID) {
+        tOP.ExecuteOperationWithForm("FinalizeConnectionAfterGroupAuthorization", { "ConnectionID": connectionID });
+    };
+    var SetCategoryLinksFromTreeSelections = function(connectionID) {
+        var leftNodes = $("#LeftSideConnectionTree" + connectionID).dynatree('getSelectedNodes');
+        var leftIDs = $.map(leftNodes, function(node) {
+            return node.data.ID;
+        });
+        var rightNodes = $("#RightSideConnectionTree" + connectionID).dynatree('getSelectedNodes');
+        var rightIDs = $.map(rightNodes, function(node) {
+            return node.data.ID;
+        });
+        if(leftIDs.length == 0 || rightIDs.length == 0)
+            return;
+        var addLink = {
+            SourceCategoryID: leftIDs[0],
+            TargetCategoryID: rightIDs[0],
+            LinkingType: "ONE2ONE"
+        };
+
+        var conn = GetConnectionByID(connectionID);
+        var existingLinks = $.map(conn.CategoryLinks, function(catLink) {
+            return {
+                SourceCategoryID: catLink.SourceCategoryID,
+                TargetCategoryID: catLink.TargetCategoryID,
+                LinkingType: catLink.LinkingType
+            };
+        });
+        existingLinks.push(addLink);
+        var parameterObj = {
+            ConnectionID: connectionID,
+            LinkItems: existingLinks
+        };
+        tOP.ExecuteOperationWithAjax("TheBall.Interface.SetCategoryLinkingForConnection", parameterObj);
+    };
+    var PopulateTreeConnectors = function(connectionID) {
+        var conn = GetConnectionByID(connectionID);
+        $("#LeftSideConnectionTree" + connectionID).dynatree({
+            onActivate: function(node) {
+            },
+            persist: false,
+            children: conn.UI_ThisSideCategories,
+            checkbox: true,
+            selectMode: 1
+        });
+        $("#RightSideConnectionTree" + connectionID).dynatree({
+            onActivate: function(node) {
+            },
+            persist: false,
+            children: conn.UI_OtherSideCategories,
+            checkbox: true,
+            selectMode: 1
+        });
+    };
+</script>
+
+{#Connections}
+    <dl class="accordion" data-accordion>
+        {#CollectionContent}
+        <dd id="dd{ID}">
+                <a href="#" class="connectionAccordion">{Description}</a>
+                <div id="conAcc{ID}" class="content">
+{^OtherSideConnectionID}
+                    <button onclick="FinalizeConnection('{ID}')">Finalize connection</button>
+{:else}
+                    <button onclick="SynchronizeConnectionCategories('{ID}')">Synchronize Categories</button>
+{?ThisSideCategories.length}
+{!
+    <button onClick="PopulateTreeConnectors('{ID}')">Populate Tree Connectors</button>
+!}
+<script type="text/javascript">
+    PopulateTreeConnectors('{ID}');
+</script>
+                    <button onclick="SetCategoryLinksFromTreeSelections('{ID}')">Set Category Links</button>
+                    <table>
+                        <tr><th>Linking Info</th></tr>
+                        {#CategoryLinks}
+                            <tr><td>{SourceCategoryID} - {TargetCategoryID} - {LinkingType}</td></tr>
+                        {/CategoryLinks}
+
+                    </table>
+{/ThisSideCategories.length}
+{/OtherSideConnectionID}
+                    <div id="LeftSideConnectionTree{ID}" style="width: 50%;display: inline-block"></div><div id="RightSideConnectionTree{ID}" style="width: 50%;display: inline-block"></div>
+                    <button onclick="DeleteConnection('{ID}')">Delete connection</button>
+                </div>
+        </dd>
+        {/CollectionContent}
+    </dl>
+{/Connections}
+<button onclick="OpenAddConnectionForm()">Add Connection</button>
+
+<script type="text/javascript">
+    $(".connectionAccordion").click(function() {
+        ActivateAccordion($(this));
+        return false;
+    });
+</script>
+
+<script>
+    var initFormAddCategoryLink = function() {
+        $("#AddCategoryLink").submit(function() {
+            $("#AddCategoryLinkModal").foundation('reveal', 'close');
+        });
+    }
+</script>
+
+
+<div id="{form_id}Modal" class="reveal-modal" data-reveal>
+    <h2>{modal_header}</h2>
+{>"form_begin.dust" /}

@@ -1,0 +1,371 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Control Panel | Welcome</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.0.3/css/normalize.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.0.3/css/foundation.min.css"/>
+    <link rel="stylesheet" href="../assets/fnd/css/style.css">
+    <link rel="stylesheet" type="text/css" media="all" href="../assets/fnd/css/whhg.css"/>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/dustjs-linkedin/2.0.0/dust-core.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.0.3/js/foundation.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min.js"></script>
+
+    <!-- Tree controls -->
+    <link href="../assets/fnd/lib/jquery-nestable/jquery-nestable.css" rel="stylesheet">
+    <script src="../assets/fnd/lib/jquery-nestable/jquery.nestable.js"></script>
+    <link href="../assets/fnd/lib/jquery.dynatree/skin/ui.dynatree.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/jquery.dynatree/1.2.4/jquery.dynatree.min.js"></script>
+
+
+    <!-- OIP Data & template management libraries -->
+    <script src="../assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js"></script>
+    <script src="../assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js"></script>
+    <script src="../assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js"></script>
+
+    <!-- Dust forms -->
+    <script src="../assets/fnd/dust/content_dust.js"></script>
+    <script src="../assets/fnd/dust/categoryTreeEditor_dust.js"></script>
+    <script src="../assets/fnd/dust/category_treeitem_dust.js"></script>
+    <script src="../assets/fnd/dust/groupsettings_dust.js"></script>
+    <script src="../assets/fnd/dust/searchresultsTest_dust.js"></script>
+    <script src="../assets/fnd/dust/searchWithResults_dust.js"></script>
+    <script src="../assets/fnd/dust/connections_dust.js"></script>
+
+    <!-- Common Dust forms -->
+    <script src="../assets/fnd/dust/forms/OPInitiateIntegrationConnection_dust.js"></script>
+
+    <!-- Common Dust Packages -->
+    <script src="../assets/fnd/dust/packages/modalforms_dust.js"></script>
+
+    <!-- Dust components  -->
+    <script src="../assets/fnd/dust/components/textinput_multiline_dust.js"></script>
+    <script src="../assets/fnd/dust/components/textinput_multiline_markdown_dust.js"></script>
+    <script src="../assets/fnd/dust/components/textinput_singleline_dust.js"></script>
+    <script src="../assets/fnd/dust/components/form_begin_dust.js"></script>
+    <script src="../assets/fnd/dust/components/form_end_dust.js"></script>
+    <script src="../assets/fnd/dust/components/modalform_begin_dust.js"></script>
+    <script src="../assets/fnd/dust/components/modalform_end_dust.js"></script>
+
+    <!-- MarkdownDeep Editor -->
+    <link rel="stylesheet" href="../assets/fnd/lib/markdowndeep/mdd_styles.css">
+    <script type="text/javascript" src="../assets/fnd/lib/markdowndeep/MarkdownDeepLib.min.js"></script>
+
+    <!-- Page's own scripts -->
+    <script src="../assets/fnd/js/controlpanel.js"></script>
+
+</head>
+<body>
+
+<div class="row">
+<div class="large-12 columns">
+
+<!-- Navigation -->
+<div class="row">
+    <div class="contain-to-grid fixed">
+        <nav class="top-bar" data-topbar>
+            <ul class="title-area">
+                <li class="name">
+                </li>
+                <!-- Closes li class "name" -->
+
+                <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+            </ul>
+            <section class="top-bar-section">
+
+                <!-- Right Nav Section -->
+                <ul class="right">
+
+                    <li><a href="#" style="color:gray;">Mode:</a></li>
+
+                    <li class="has-dropdown"><a href="#">Tiles</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Timeline</a></li>
+                            <li><a href="#">Map</a></li>
+                        </ul>
+                    </li>
+                    <!--<li class="active"><a href="#">Right Button Active</a></li>-->
+                    <!--<li class="has-dropdown"><a href="#">Right Button with Dropdown</a>
+                      <ul class="dropdown">
+                        <li><a href="#">First link in dropdown</a></li>
+                      </ul> </li>   -->
+                </ul>
+                <!-- Ends the list of elements of the Right Top Navigation Bar-->
+
+                <!-- Left Nav Section -->
+                <ul class="left">
+                    <!--BEGINS All elements of the Top Navigation, Left, go here.... they use a "li" element -->
+                    <li class="has-dropdown"><a href="#" style="font-weight:bold;font-size:120%">The Ball Tests</a>
+                        <ul class="dropdown" id="site-dropdown-list">
+                        </ul>
+                        <!-- Closes the dropdown elements in the Ul-->
+                    </li>
+
+                    <li><a href="#" style="color:gray;">Showing:</a></li>
+
+                    <!--Hugo Filter list...<li>
+                      <dl class="sub-nav">
+                      <dt>Filter:</dt>
+                      <dd class="active"><a href="#">All</a></dd>
+                      <dd><a href="#">Workspace</a></dd>
+                      <dd><a href="#">Text</a></dd>
+                      <dd><a href="#">Pictures</a></dd>
+                      </dl>
+                    </li> ... Hugo Filter List ends-->
+
+
+                    <!-- Regular ORIGINAL element in the left navigation... <li><a href="#">Left Nav Button</a></li>...a button-->
+
+                    <!--ENDS All elements of the Top Navigation, Left, go here.... they use a "li" element -->
+                </ul>
+                <!-- Closes the Ul class "left" section -->
+            </section>
+        </nav>
+        <!-- End Top Bar -->
+    </div>
+</div>
+
+<!-- End Navigation -->
+<div class="row"> <!-- Hugo: Begins...Created a row to separate topNav Bar with the rest-->
+    <div class="large-12 small-12 columns">
+        <hr>
+    </div>
+
+
+    <!-- Side Bar -->
+    <div class="large-12 small-12 columns">
+        <dl class="tabs vertical" data-tab>
+            <dd class="active"><a href="#contentPanel"><i class="icon-mailinglists"
+                                                          style="font-size: 70%; font-weight: normal;"></i>&nbsp;Content</a>
+            </dd>
+            <dd><a href="#categoriesPanel"><i class="icon-menu" style="font-size: 70%; font-weight: normal;"></i>&nbsp;Categories</a>
+            </dd>
+            <dd><a href="#groupSettingsPanel"><i class="icon-settingstwo-gearalt"
+                                                 style="font-size: 70%; font-weight: normal;"></i>&nbsp;Group
+                Settings</a></dd>
+            <dd><a href="#searchWithResultsPanel"><i class="icon-settingstwo-gearalt"
+                                                 style="font-size: 70%; font-weight: normal;"></i>&nbsp;Search
+                Settings</a></dd>
+            <!--<dd><a href="#panel4a">JSON Server</a></dd>-->
+        </dl>
+
+        <div class="tabs-content vertical">
+
+            <!-- Starts content for contentPanel-->
+            <div class="content active" id="contentPanel">
+                <!-- +++Isotope content starts +++++++++++++++++++++++++++++++++++++++++++++ -->
+                <div class="portfolioFilter hide">
+                    <a href="#" data-filter="*" class="current">All Categories</a>
+                    <a href="#" data-filter=".illustrations">Illustrations</a>
+                    <a href="#" data-filter=".movies">Movies</a>
+                    <a href="#" data-filter=".paintings">Paintings</a>
+                    <a href="#" data-filter=".portraits">Portraits</a>
+                </div>
+                <div class="portfolioContainer" id="contentDivContainer">
+                </div>
+                <!-- +++Isotope content ends +++++++++++++++++++++++++++++++++++++++++++++ -->
+                <div id="alert-contentUpdate-successful" class="reveal-modal" data-reveal>
+                    <h3>The content was updated successfully.
+                    </h3>
+
+                    <p id="alert-contentUpdate-successful-variables" style="font-size: 85%;"></p>
+                    <a id="close-alert-contentUpdate-successful" class="close-reveal-modal">&#215;</a>
+                </div>
+                <div id="editContentModal" class="reveal-modal" data-reveal>
+                    <h2>Editing content</h2>
+
+                    <form id="form-editContentModal">
+                        <div class="row">
+                            <div class="large-6 columns left" id="editContentModal-image"></div>
+                            <div class="large-6 columns right hide"><input type="text" class="hidden-field"
+                                                                           id="editContentModal-id"/></div>
+                            <div class="large-6 columns right hide"><input type="text" class="hidden-field"
+                                                                           id="editContentModal-imagePath"/></div>
+                            <div class="large-6 columns right"><label>Title</label> <input type="text"
+                                                                                           id="editContentModal-title"/>
+                            </div>
+                            <div class="large-6 columns right"><label>Excerpt</label> <input type="text"
+                                                                                             id="editContentModal-excerpt"/>
+                            </div>
+                            <div class="large-6 columns right"><label>Categories</label> <input type="text"
+                                                                                                id="editContentModal-categories"/>
+                            </div>
+                            <div class="large-6 columns right"><label>Content</label> <textarea
+                                    id="editContentModal-content"></textarea></div>
+                            <div class="large-6 columns right">
+                                <a class="button" id="editContentModal-submit">Submit Changes</a>
+                                <a class="button" id="cancelEditContentModal">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+                <div id="viewContentModal" class="reveal-modal" data-reveal>
+                    <!--Begins contents of  div for the viewContentModal-->
+
+                    <div class="row">
+                        <div class="large-6 columns left" id="viewContentModal-image"></div>
+                        <div class="large-6 columns right" style="padding-left: 0px !important;"><strong><span
+                                id="viewContentModal-title" style="font-size: 150%;"></span></strong><br></div>
+                        <div class="large-6 columns right" style="padding-left: 0px !important;"><h3 class="subheader"
+                                                                                                     id="viewContentModal-excerpt"
+                                                                                                     style="font-style:italic !important; "></h3>
+                        </div>
+                        <div id="viewContentModal-content"
+                             style="padding-left: 15px !important; padding-right: 15px !important;"></div>
+                        <div class="subheader" id="viewContentModal-categories"
+                             style="font-style:italic;font-size: 85%; padding-left: 0px !important;"></div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12">
+                            <br>
+                            <a class="button" id="closeViewContentModal" style="float:right !important;">Close</a>
+                        </div>
+                    </div>
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+                <!--closes div for the viewContentModal-->
+
+
+            </div>
+            <!--Ends content for contentPanel -->
+
+            <!--Starts content for Tab "categories-panel" -->
+            <div class="content" id="categoriesPanel">
+                <dl class="accordion" data-accordion>
+                    <dd>
+                        <a href="#categoryTreeEditorPanel">Category Tree</a>
+                        <div id="categoryTreeEditorPanel" class="content categoryTreeEditor">
+                        </div>
+                    </dd>
+                    <dd>
+                        <a href="#categoryConnectionPanel">Category Connections</a>
+                        <div id="categoryConnectionPanel" class="content categoryConnections">
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+
+            <!--Ends content for categories-panel -->
+
+            <!-- Starts content for groupSettingsPanel -->
+            <div class="content" id="groupSettingsPanel">
+                <div class="groupsettings">
+                </div>
+            </div>
+            <!-- Ends content for groupSettingsPanel -->
+
+            <!-- Starts content for Search with results panel -->
+            <div class="content" id="searchWithResultsPanel">
+                <div class="searchWithResults">
+                </div>
+            </div>
+            <!-- Ends content for Search-->
+
+            <!-- Starts content for panel4a -->
+            <!--<div class="content" id="panel4a">-->
+            <!--</div>-->
+            <!-- Ends content for panel4a -->
+
+        </div>
+        <!--Ends div class for the side bar, large 12 columns, small 12 columns-->
+        <!-- End Side Bar -->
+
+    </div>
+</div>
+</div>
+
+
+<!-- Footer -->
+
+<footer class="row">
+    <div class="large-12 columns">
+        <hr/>
+        <div class="row">
+
+            <div class="large-6 columns">
+                <p>© Copyright Aalto Global Impact</p>
+            </div>
+            <div class="large-6 columns">
+                <ul class="inline-list right">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<!-- End Footer -->
+
+</div>
+
+<div id="DustPackageContents">
+
+</div>
+
+<script>
+    dust.render("modalforms.dust", {},function(error, output) {
+        $("#DustPackageContents").html(output);
+    });
+</script>
+
+<script>
+    $(document).foundation(
+            {
+                reveal: {
+                    animation: 'fadeAndPop',
+                    animation_speed: 250,
+                    close_on_background_click: false
+                }
+
+            }
+    );
+</script>
+
+<!-- +++Document Ready functions begins++++++++++++++++++++++++++++++++++++++++++++-->
+<script>
+$(document).ready(function () {
+
+
+    //-----------------ends: handler for Submit on content Edit
+
+    $("#closeViewContentModal").click(function () {
+        $('#viewContentModal').foundation('reveal', 'close');
+    });
+
+    $("#close-alert-groupadded-successful").click(function () {
+        //location.reload();    ---->refreshes the page to the current URL
+        document.location.href = '#groups-panel'; //can redirect to any URL you want
+    });
+
+    $("#create-group-button").click(function () {
+        $('#create-group-modal').foundation('reveal', 'open');
+    });
+    $("#cancelEditContentModal").click(function () {
+        $('#editContentModal').foundation('reveal', 'close');
+    });
+
+
+});
+
+
+// OP manager at the bottom, as it creates dynamic elements that belong on bottom of the body
+var tOP = new tUI.OperationManager();
+
+
+</script>
+<!-- +++Document Ready functions ends ++++++++++++++++++++++++++++++++++++++++++++-->
+
+
+</body>
+</html>
